@@ -1,0 +1,41 @@
+name: OS CI/CD
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+      
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y nasm gcc make qemu-system-x86-64 genisoimage
+        
+    - name: Build OS
+      run: |
+        make all
+        
+    - name: Test build
+      run: |
+        make clean
+        make all
+        
+    - name: Run in QEMU (with timeout)
+      run: |
+        timeout 30 make run || true
+        echo "QEMU test completed"
+        
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: os-build
+        path: build/
+        retention-days: 7

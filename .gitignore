@@ -1,0 +1,34 @@
+# OS Development Build Artifacts
+*.o
+*.elf
+*.bin
+*.iso
+*.img
+*.elf
+*.bin
+*.o
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+*.os
+*.kernel
+
+# Logs and temp files
+*.log
+temp/
+build/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Documentation build artifacts
+*.html
+*.pdf
+*.md.bak
